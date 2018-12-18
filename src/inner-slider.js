@@ -276,15 +276,15 @@ export class InnerSlider extends React.Component {
     let childrenCount = React.Children.count(this.props.children);
     const spec = { ...this.props, ...this.state, slideCount: childrenCount };
     let slideCount = getPreClones(spec) + getPostClones(spec) + childrenCount;
-    let trackWidth = 100 / this.props.slidesToShow * slideCount;
+    let trackWidth = (100 / this.props.slidesToShow) * slideCount;
     let slideWidth = 100 / slideCount;
     let trackLeft =
-      -slideWidth *
-      (getPreClones(spec) + this.state.currentSlide) *
-      trackWidth /
+      (-slideWidth *
+        (getPreClones(spec) + this.state.currentSlide) *
+        trackWidth) /
       100;
     if (this.props.centerMode) {
-      trackLeft += (100 - slideWidth * trackWidth / 100) / 2;
+      trackLeft += (100 - (slideWidth * trackWidth) / 100) / 2;
     }
     let trackStyle = {
       width: trackWidth + "%",
@@ -513,20 +513,21 @@ export class InnerSlider extends React.Component {
   };
   play = () => {
     var nextIndex;
-    if (this.props.rtl) {
+    if (this.state.currentDirection === 0) {
       nextIndex = this.state.currentSlide - this.props.slidesToScroll;
     } else {
-      if (canGoNext({ ...this.props, ...this.state })) {
-        nextIndex = this.state.currentSlide + this.props.slidesToScroll;
-      } else {
-        return false;
-      }
+      nextIndex = this.state.currentSlide + this.props.slidesToScroll;
     }
 
     this.slideHandler(nextIndex);
   };
 
-  autoPlay = playType => {
+  autoPlay = (playType, options) => {
+    if (options && options.direction) {
+      this.setState({
+        currentDirection: options.direction === "previous" ? 0 : 1
+      });
+    }
     if (this.autoplayTimer) {
       clearInterval(this.autoplayTimer);
     }
