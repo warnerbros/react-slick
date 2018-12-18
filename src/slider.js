@@ -82,7 +82,7 @@ export default class Slider extends React.Component {
 
   slickPause = () => this.innerSlider.pause("paused");
 
-  slickPlay = () => this.innerSlider.autoPlay("play");
+  slickPlay = options => this.innerSlider.autoPlay("play", options);
 
   render() {
     var settings;
