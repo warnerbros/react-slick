@@ -515,8 +515,18 @@ export class InnerSlider extends React.Component {
     var nextIndex;
     if (this.state.currentDirection === 0) {
       nextIndex = this.state.currentSlide - this.props.slidesToScroll;
-    } else {
+    } else if (this.state.currentDirection === 1) {
       nextIndex = this.state.currentSlide + this.props.slidesToScroll;
+    } else {
+      if (this.props.rtl) {
+        nextIndex = this.state.currentSlide - this.props.slidesToScroll;
+      } else {
+        if (canGoNext({ ...this.props, ...this.state })) {
+          nextIndex = this.state.currentSlide + this.props.slidesToScroll;
+        } else {
+          return false;
+        }
+      }
     }
 
     this.slideHandler(nextIndex);
