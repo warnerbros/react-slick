@@ -52,7 +52,7 @@ export class InnerSlider extends React.Component {
       this.list.style.height = getHeight(elem) + "px";
     }
   };
-  componentWillMount = () => {
+  UNSAFE_componentWillMount = () => {
     this.ssrInit();
     this.props.onInit && this.props.onInit();
     if (this.props.lazyLoad) {
@@ -127,7 +127,7 @@ export class InnerSlider extends React.Component {
       clearInterval(this.autoplayTimer);
     }
   };
-  componentWillReceiveProps = nextProps => {
+  UNSAFE_componentWillReceiveProps = nextProps => {
     let spec = {
       listRef: this.list,
       trackRef: this.track,
