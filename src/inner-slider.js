@@ -126,6 +126,7 @@ export class InnerSlider extends React.Component {
     if (this.autoplayTimer) {
       clearInterval(this.autoplayTimer);
     }
+    this.ro.disconnect();
   };
   UNSAFE_componentWillReceiveProps = nextProps => {
     let spec = {
@@ -533,13 +534,13 @@ export class InnerSlider extends React.Component {
   };
 
   autoPlay = (playType, options) => {
+    if (this.autoplayTimer) {
+      clearInterval(this.autoplayTimer);
+    }
     if (options && options.direction) {
       this.setState({
         currentDirection: options.direction === "previous" ? 0 : 1
       });
-    }
-    if (this.autoplayTimer) {
-      clearInterval(this.autoplayTimer);
     }
     const autoplaying = this.state.autoplaying;
     if (playType === "update") {
