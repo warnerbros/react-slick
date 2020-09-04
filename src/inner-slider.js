@@ -597,6 +597,7 @@ export class InnerSlider extends React.Component {
     this.props.autoplay &&
     this.state.autoplaying === "focused" &&
     this.autoPlay("blur");
+  getCurrentSlide = () => this.state.currentSlide;
 
   render = () => {
     var className = classnames("slick-slider", this.props.className, {
