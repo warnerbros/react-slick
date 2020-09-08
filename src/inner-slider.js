@@ -126,6 +126,7 @@ export class InnerSlider extends React.Component {
     if (this.autoplayTimer) {
       clearInterval(this.autoplayTimer);
     }
+    this.ro.disconnect();
   };
   UNSAFE_componentWillReceiveProps = nextProps => {
     let spec = {
@@ -533,13 +534,13 @@ export class InnerSlider extends React.Component {
   };
 
   autoPlay = (playType, options) => {
+    if (this.autoplayTimer) {
+      clearInterval(this.autoplayTimer);
+    }
     if (options && options.direction) {
       this.setState({
         currentDirection: options.direction === "previous" ? 0 : 1
       });
-    }
-    if (this.autoplayTimer) {
-      clearInterval(this.autoplayTimer);
     }
     const autoplaying = this.state.autoplaying;
     if (playType === "update") {
@@ -596,6 +597,7 @@ export class InnerSlider extends React.Component {
     this.props.autoplay &&
     this.state.autoplaying === "focused" &&
     this.autoPlay("blur");
+  getCurrentSlide = () => this.state.currentSlide;
 
   render = () => {
     var className = classnames("slick-slider", this.props.className, {
@@ -733,12 +735,12 @@ export class InnerSlider extends React.Component {
     return (
       <div {...innerSliderProps}>
         {!this.props.unslick ? prevArrow : ""}
+        {!this.props.unslick ? nextArrow : ""}
         <div ref={this.listRefHandler} {...listProps}>
           <Track ref={this.trackRefHandler} {...trackProps}>
             {this.props.children}
           </Track>
         </div>
-        {!this.props.unslick ? nextArrow : ""}
         {!this.props.unslick ? dots : ""}
       </div>
     );
