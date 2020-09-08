@@ -735,12 +735,12 @@ export class InnerSlider extends React.Component {
     return (
       <div {...innerSliderProps}>
         {!this.props.unslick ? prevArrow : ""}
+        {!this.props.unslick ? nextArrow : ""}
         <div ref={this.listRefHandler} {...listProps}>
           <Track ref={this.trackRefHandler} {...trackProps}>
             {this.props.children}
           </Track>
         </div>
-        {!this.props.unslick ? nextArrow : ""}
         {!this.props.unslick ? dots : ""}
       </div>
     );
