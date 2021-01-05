@@ -14,6 +14,7 @@ export class PrevArrow extends React.PureComponent {
   render() {
     let prevClasses = { "slick-arrow": true, "slick-prev": true };
     let prevHandler = this.clickHandler.bind(this, { message: "previous" });
+    let tabIndex;
 
     if (
       !this.props.infinite &&
@@ -22,9 +23,11 @@ export class PrevArrow extends React.PureComponent {
     ) {
       prevClasses["slick-disabled"] = true;
       prevHandler = null;
+      tabIndex = -1;
     }
 
     let prevArrowProps = {
+      tabIndex,
       key: "0",
       "data-role": "none",
       className: classnames(prevClasses),
@@ -65,13 +68,16 @@ export class NextArrow extends React.PureComponent {
   render() {
     let nextClasses = { "slick-arrow": true, "slick-next": true };
     let nextHandler = this.clickHandler.bind(this, { message: "next" });
+    let tabIndex;
 
     if (!canGoNext(this.props)) {
       nextClasses["slick-disabled"] = true;
       nextHandler = null;
+      tabIndex = -1;
     }
 
     let nextArrowProps = {
+      tabIndex,
       key: "1",
       "data-role": "none",
       className: classnames(nextClasses),
